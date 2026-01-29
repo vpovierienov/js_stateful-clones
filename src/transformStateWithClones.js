@@ -8,7 +8,7 @@
  */
 function transformStateWithClones(state, actions) {
   const result = [];
-  let currentState = { ...state }; // копия начального состояния
+  let currentState = { ...state };
 
   for (const action of actions) {
     let nextState;
@@ -32,13 +32,18 @@ function transformStateWithClones(state, actions) {
           delete nextState[key];
         }
         break;
+
+      default:
+        // неизвестный action → состояние не меняем
+        nextState = { ...currentState };
     }
 
     result.push(nextState);
-    currentState = nextState; // двигаемся дальше
+    currentState = nextState;
   }
 
   return result;
 }
+
 
 module.exports = transformStateWithClones;
